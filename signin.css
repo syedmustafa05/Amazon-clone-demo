@@ -1,0 +1,83 @@
+body {
+    background-color: #f7fafa; /* A light, almost white background */
+    font-family: Arial, sans-serif; /* Amazon often uses Arial or similar sans-serif fonts */
+}
+.amazon-logo{
+    background-color: rgb(132, 120, 120);
+}
+.amazon-logo img {
+    width: 100px; /* Adjust as needed */
+    height: auto;
+    color: black;
+}
+
+.login-card {
+    width: 350px; /* Fixed width as seen on Amazon */
+    background-color: #ffffff;
+    border-color: #dee0e3 !important; /* Lighter border color */
+}
+
+.login-card h5 {
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.form-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    height: 31px;
+    padding: 3px 7px;
+    border-color: #a2a6ac;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 1px 0 rgba(0,0,0,.07) inset;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.form-control:focus {
+    border-color: #e77600;
+    box-shadow: 0 0 0 3px #fcb14f, inset 0 0 0 2px #fbc68b;
+    outline: none;
+}
+
+.btn-warning {
+    background-color: #FFD814;
+    border-color: #FCD200;
+    color: #111;
+    font-weight: normal;
+    box-shadow: 0 2px 5px 0 rgba(213,217,217,.5);
+    transition: all .1s ease-in-out;
+}
+
+.btn-warning:hover {
+    background-color: #F7CA00;
+    border-color: #F2C200;
+}
+
+.form-text {
+    font-size: 12px;
+    color: #111;
+}
+
+.form-text a, .login-card a, .footer-links a {
+    color: #0066c0; /* Amazon's link blue */
+}
+
+.form-text a:hover, .login-card a:hover, .footer-links a:hover {
+    color: #e47911; /* Amazon's link hover orange */
+    text-decoration: underline !important;
+}
+
+hr {
+    border-top: 1px solid #ccc;
+}
+
+.footer-links a {
+    font-size: 11px;
+}
+
+.text-muted {
+    font-size: 11px;
+}

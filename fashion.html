@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Today's Deals</title>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EAEDED; /* Light gray background */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Ensure consistent box model across all elements */
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button, select, input {
+            font-family: inherit;
+            font-size: inherit;
+            box-sizing: border-box;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #131921; /* Dark Amazon header blue */
+            color: #FFFFFF;
+            padding: 0 16px; /* Adjusted padding to allow full height elements */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem; /* text-sm */
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 50; /* Ensure header stays on top of other content */
+            min-width: 320px; /* Prevent shrinking on very small screens */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for header */
+            height: 60px; /* Fixed height for the header to align items */
+        }
+        @media (min-width: 768px) {
+            .header {
+                font-size: 1rem; /* md:text-base */
+            }
+        }
+
+        .header-logo-section {
+            display: flex;
+            align-items: center;
+            height: 100%; /* Occupy full header height */
+            padding-right: 8px; /* Space between logo and delivery */
+        }
+        .header-logo-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0 6px; /* Adjusted padding for better alignment */
+            height: 50px; /* Match approximate height of real Amazon header items */
+            border-radius: 0.125rem; /* Slightly less rounded */
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            margin-right: 4px; /* Small gap before delivery address */
+        }
+        .header-logo-link:hover {
+            border-color: #FFFFFF;
+        }
+        .amazon-logo {
+            height: 30px; /* Adjusted logo size for better realism */
+            margin-top: 5px; /* Slight adjustment for visual alignment */
+        }
+        @media (min-width: 768px) {
+            .amazon-logo {
+                height: 35px;
+            }
+        }
+        .amazon-com-suffix {
+            display: none;
+            font-size: 1rem; /* Slightly larger for .com */
+            margin-top: 4px; /* Align with logo */
+            font-weight: 500;
+        }
+        @media (min-width: 768px) {
+            .amazon-com-suffix {
+                display: inline-block;
+            }
+        }
+
+        .delivery-location {
+            display: flex;
+            align-items: flex-end; /* Align to bottom for text alignment */
+            gap: 2px; /* Reduced gap */
+            cursor: pointer;
+            padding: 4px 6px; /* Adjusted padding */
+            height: 50px; /* Match height of logo link */
+            border-radius: 0.125rem;
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+        }
+        .delivery-location:hover {
+            border-color: #FFFFFF;
+        }
+        .delivery-icon {
+            height: 18px; /* Slightly smaller icon */
+            width: 18px;
+            margin-bottom: 2px; /* Align with text baseline */
+        }
+        .delivery-text-container {
+            line-height: 1.2; /* Tighter line height */
+        }
+        .delivery-label {
+            font-size: 0.65rem; /* Smaller font for "Deliver to" */
+            color: #CCC; /* Lighter gray for sub-text */
+        }
+        .delivery-value {
+            font-weight: 700;
+            font-size: 0.8rem; /* Slightly smaller for "Pakistan" */
+        }
+
+        /* Search Bar Styles */
+        .search-bar-container {
+            flex-grow: 1;
+            margin: 0 16px;
+            max-width: 700px; /* Increased max-width */
+            height: 40px; /* Fixed height for search bar */
+            display: flex; /* Always display search bar as per new image */
+            border-radius: 0.375rem;
+            overflow: hidden;
+            border: 2px solid transparent; /* Default transparent border */
+            transition: border-color 0.1s ease-in-out;
+        }
+        .search-bar-container:focus-within {
+            border-color: #FF9900; /* Yellow border on focus */
+        }
+
+        .search-dropdown {
+            background-color: #F3F3F3; /* Light gray for dropdown */
+            color: #555;
+            padding: 8px 10px; /* Adjusted padding */
+            font-size: 0.8rem; /* Slightly smaller font */
+            border: none;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 6px center; /* Adjusted arrow position */
+            background-size: 0.8em; /* Smaller arrow */
+            padding-right: 1.5rem;
+            cursor: pointer;
+            border-top-left-radius: 0.375rem;
+            border-bottom-left-radius: 0.375rem;
+            border-right: 1px solid #CCC; /* Darker separator line */
+        }
+        .search-input {
+            flex-grow: 1;
+            padding: 8px 10px;
+            color: #1F2937;
+            outline: none;
+            border: none;
+            background-color: #FFFFFF;
+        }
+        .search-button {
+            background-color: #FEBD69; /* Amazon's search button orange */
+            color: #1F2937;
+            padding: 8px 12px; /* Adjusted padding */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out;
+            border-top-right-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+        }
+        .search-button:hover {
+            background-color: #F3A847; /* Darker orange on hover */
+        }
+        .search-button svg {
+            height: 22px; /* Slightly smaller search icon */
+            width: 22px;
+        }
+
+        /* Right Header Section Styles */
+        .right-header-section {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Reduced gap */
+            height: 100%; /* Occupy full header height */
+        }
+        .header-link {
+            display: flex;
+            flex-direction: column; /* Stack text vertically */
+            justify-content: center;
+            height: 50px; /* Consistent height */
+            padding: 0 7px; /* Adjusted padding */
+            border-radius: 0.125rem;
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .header-link:hover {
+            border-color: #FFFFFF;
+        }
+        .flag-icon {
+            height: 16px;
+            width: 16px;
+            margin-bottom: 2px; /* Space for text below */
+        }
+        .language-text {
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        .header-dropdown-icon {
+            height: 12px;
+            width: 12px;
+            margin-left: 2px;
+            vertical-align: middle; /* Align with text */
+        }
+        .hidden-md {
+            display: block; /* Always visible in this layout */
+        }
+        .header-link p {
+            font-size: 0.7rem; /* Smaller font for top line */
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+        .header-link strong {
+            font-weight: 700;
+            font-size: 0.85rem; /* Slightly larger for bottom line */
+            line-height: 1.2;
+        }
+        .header-link .small-dropdown-icon {
+            height: 8px; /* Even smaller for inline with strong */
+            width: 8px;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+
+        .cart-link {
+            position: relative;
+            display: flex;
+            align-items: flex-end; /* Align to bottom for text */
+            padding: 0 7px;
+            height: 50px; /* Consistent height */
+            border-radius: 0.125rem;
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            cursor: pointer;
+        }
+        .cart-link:hover {
+            border-color: #FFFFFF;
+        }
+        .cart-icon {
+            height: 38px; /* Larger cart icon */
+            width: 38px;
+            margin-bottom: -5px; /* Pull down slightly */
+        }
+        .cart-count {
+            position: absolute;
+            top: 7px; /* Adjusted top position */
+            left: 17px; /* Adjusted left position */
+            color: #F08804; /* Amazon's cart count orange */
+            font-weight: 700;
+            font-size: 0.9rem; /* Larger font for count */
+        }
+        .cart-text {
+            display: block; /* Always visible in this layout */
+            margin-top: 18px; /* Push text down to align below cart */
+            font-weight: 700;
+            font-size: 0.85rem;
+            line-height: 1; /* Tighter line height */
+        }
+
+        /* Bottom Navigation Styles */
+        .bottom-nav {
+            background-color: #232F3E; /* Darker blue for bottom nav */
+            color: #FFFFFF;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 2px; /* Reduced gap between links */
+            font-size: 0.875rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 40px; /* Fixed height for bottom nav */
+        }
+        .bottom-nav-link {
+            padding: 6px 8px; /* Adjusted padding for better click area */
+            border-radius: 0.125rem; /* Slightly less rounded */
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            white-space: nowrap;
+            font-weight: 500; /* Slightly bolder */
+            line-height: 1; /* Tighter line height */
+            font-size: 0.85rem; /* Slightly smaller font */
+        }
+        .bottom-nav-link:hover {
+            border-color: #FFFFFF;
+        }
+        .bottom-nav-link.all-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 700;
+        }
+        .bottom-nav-link svg {
+            height: 20px;
+            width: 20px;
+            margin-right: 2px; /* Space between icon and text */
+        }
+
+        /* Today's Deals Specific Nav */
+        .deals-nav {
+            background-color: #FFFFFF; /* White background for this nav */
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Gap between buttons */
+            font-size: 0.875rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid #E5E7EB; /* Subtle bottom border */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Very subtle shadow */
+        }
+        .deals-nav-button {
+            background-color: transparent;
+            color: #0F1111; /* Dark text */
+            padding: 6px 12px;
+            border-radius: 0.375rem;
+            border: 1px solid transparent; /* Default transparent border */
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+            font-weight: 500;
+        }
+        .deals-nav-button:hover {
+            background-color: #F0F2F2; /* Light gray on hover */
+            border-color: #D5D9D9;
+        }
+        .deals-nav-button.active {
+            background-color: #DDEBF7; /* Light blue for active */
+            border-color: #007185; /* Amazon blue for active border */
+            color: #007185;
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .main-content-container {
+            max-width: 1280px; /* Standard content width */
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        /* Today's Deals Heading */
+        .todays-deals-heading {
+            font-size: 2rem; /* text-3xl */
+            font-weight: 600;
+            color: #0F1111;
+            margin-bottom: 24px;
+            margin-top: 16px; /* Space from deals nav */
+        }
+
+        /* Echo Banner - Removed for this page */
+
+        .product-check-note {
+            font-size: 0.875rem;
+            color: #4B5563;
+            margin-bottom: 16px;
+            margin-left: 20px; /* Align with Results text */
+        }
+
+        .main-content-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        @media (min-width: 1024px) {
+            .main-content-layout {
+                flex-direction: row;
+            }
+        }
+
+        /* Left Sidebar - Filters */
+        .sidebar {
+            width: 100%;
+            background-color: #FFFFFF;
+            padding: 16px;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Lighter shadow for sidebar */
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                width: 25%;
+                min-width: 200px;
+            }
+        }
+        .sidebar h3 {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 16px;
+        }
+        .filter-section {
+            margin-bottom: 24px;
+        }
+        .filter-section h4 {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #0F1111; /* Darker heading for clarity */
+        }
+        .filter-list {
+            font-size: 0.875rem;
+            color: #007185; /* Amazon's blue for links */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .filter-list li {
+            margin-bottom: 4px;
+        }
+        .filter-list a {
+            transition: text-decoration 0.1s ease-in-out, color 0.1s ease-in-out;
+        }
+        .filter-list a:hover {
+            text-decoration: underline;
+            color: #C7511F; /* Highlight on hover */
+        }
+        .filter-list .see-more {
+            color: #007185;
+            cursor: pointer;
+        }
+        .filter-list .see-more:hover {
+            color: #C7511F;
+        }
+        .department-sub-item {
+            margin-left: 16px;
+        }
+
+        /* Price Filter Specific */
+        .price-filter-controls {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .price-filter-controls span {
+            font-size: 0.875rem;
+            color: #4B5563;
+            white-space: nowrap;
+        }
+        .price-range-slider {
+            flex-grow: 1;
+            margin: 0 8px;
+            height: 4px;
+            border-radius: 9999px;
+            background-color: #D1D5DB;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        /* Custom styles for the price range slider thumb */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #FF9900;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FF9900;
+            margin-top: -6px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #FF9900;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FF9900;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 4px;
+            background: #D5D9D9;
+            border-radius: 2px;
+        }
+        input[type="range"]::-moz-range-track {
+            height: 4px;
+            background: #D5D9D9;
+            border-radius: 2px;
+        }
+
+        .price-input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            gap: 4px;
+        }
+        .price-input {
+            width: 80px;
+            padding: 4px;
+            border: 1px solid #D5D9D9; /* Light gray border */
+            border-radius: 0.25rem; /* More subtle border radius */
+            font-size: 0.875rem;
+            text-align: center;
+            outline: none; /* Remove default focus outline */
+            transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        }
+        .price-input:focus {
+            border-color: #FFC400; /* Yellow border on focus */
+            box-shadow: 0 0 0 2px rgba(255, 196, 0, 0.4); /* Glow effect on focus */
+        }
+        .price-input-separator {
+            margin: 0 4px;
+            color: #6B7280;
+        }
+        .price-go-button {
+            background-color: #F7FAFA;
+            color: #0F1111;
+            padding: 4px 12px;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            margin-left: 8px;
+            border: 1px solid #D5D9D9;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+        .price-go-button:hover {
+            background-color: #EBEDEF;
+            border-color: #B0B0B0;
+        }
+
+        /* Customer Reviews */
+        .star-rating {
+            color: #FF9900; /* Amazon's star rating orange */
+        }
+        .review-count {
+            font-size: 0.75rem;
+            color: #007185;
+            margin-left: 4px;
+            cursor: pointer;
+        }
+        .review-count:hover {
+            text-decoration: underline;
+            color: #C7511F;
+        }
+        .rating-text {
+            color: #4B5563;
+        }
+
+        /* Color Filter */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* 6 columns for colors */
+            gap: 8px; /* Gap between color swatches */
+            margin-top: 8px;
+        }
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%; /* Circular swatches */
+            border: 1px solid #D5D9D9;
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        }
+        .color-swatch:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        .color-swatch.selected {
+            border: 2px solid #007185; /* Highlight selected color */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Brands Filter */
+        .brand-list label {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #374151;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+        .brand-list input[type="checkbox"] {
+            margin-right: 8px;
+            border-radius: 0.125rem; /* Sharper corners for checkboxes */
+            color: #007185; /* Amazon's blue for checkboxes */
+            transform: scale(1.1);
+        }
+
+        /* Right Content - Product Listings */
+        .product-listings-main {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .product-listings-main {
+                width: 75%;
+            }
+        }
+
+        .listing-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 8px;
+        }
+        @media (min-width: 640px) {
+            .listing-header {
+                flex-direction: row;
+                align-items: center;
+                gap: 0;
+            }
+        }
+        .listing-results-text {
+            font-size: 0.875rem;
+            color: #4B5563;
+            margin-bottom: 8px;
+        }
+        @media (min-width: 640px) {
+            .listing-results-text {
+                margin-bottom: 0;
+            }
+        }
+        .listing-results-text span {
+            font-weight: 600;
+        }
+        .sort-by-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: #4B5563;
+            margin-left: auto; /* Push to right on larger screens */
+        }
+        .sort-by-label {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .sort-by-label {
+                display: block;
+            }
+        }
+        .sort-by-select {
+            padding: 8px;
+            border: 1px solid #D5D9D9;
+            border-radius: 0.25rem;
+            outline: none;
+            box-shadow: 0 0 0 0px transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+            padding-right: 2rem;
+            cursor: pointer;
+            background-color: #FFFFFF;
+            transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        }
+        .sort-by-select:focus {
+            border-color: #FFC400;
+            box-shadow: 0 0 0 2px rgba(255, 196, 0, 0.4);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 24px;
+        }
+        @media (min-width: 640px) {
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: #FFFFFF;
+            padding: 16px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+            position: relative; /* For discount badge positioning */
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 16px;
+            border-radius: 0.375rem;
+            aspect-ratio: 4/3;
+            max-height: 180px;
+            display: block; /* Remove extra space below image */
+        }
+        .product-card h3 {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0F1111; /* Dark text for headings */
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            min-height: 2.5em; /* Ensure consistent height for titles */
+        }
+        .product-card .rating-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            white-space: nowrap;
+        }
+        .product-card .rating-stars {
+            color: #FF9900;
+        }
+        .product-card .review-link {
+            font-size: 0.75rem;
+            color: #007185;
+            margin-left: 4px;
+        }
+        .product-card .review-link:hover {
+            text-decoration: underline;
+            color: #C7511F;
+        }
+        .product-card .bought-in-month {
+            color: #565959; /* More subtle gray */
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+        }
+        .product-card .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0F1111;
+            margin-bottom: 4px;
+        }
+        .product-card .price sup {
+            font-size: 0.75rem; /* Smaller superscript for cents */
+            font-weight: 400;
+            vertical-align: super;
+        }
+        .product-card .free-game-text {
+            font-size: 0.75rem;
+            color: #007185; /* Blue for game offer */
+            margin-bottom: 4px;
+        }
+        .product-card .delivery-date {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #007185; /* Amazon's link blue for delivery info */
+            margin-bottom: 4px;
+        }
+        .product-card .ships-to {
+            font-size: 0.75rem;
+            color: #565959;
+            margin-bottom: 4px;
+        }
+        .product-card .original-price {
+            font-size: 0.75rem;
+            color: #565959;
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+        .product-card .stock-warning {
+            font-size: 0.75rem;
+            color: #CC0C39; /* Amazon's red for warnings */
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .product-card .offers-link {
+            font-size: 0.75rem;
+            color: #007185;
+            margin-left: 4px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        .product-card .offers-link:hover {
+            text-decoration: underline;
+            color: #C7511F;
+        }
+
+        .product-card .add-to-cart-button {
+            margin-top: 16px;
+            background-color: #FFD814; /* Amazon's yellow button */
+            color: #0F1111;
+            padding: 8px 16px;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid #FFC400;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+            width: 100%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            background-image: linear-gradient(to bottom, #FFEA7F, #FFD814); /* Yellow gradient */
+        }
+        .product-card .add-to-cart-button:hover {
+            background-color: #F5C600;
+            border-color: #E0943A;
+            background-image: linear-gradient(to bottom, #FFD814, #F5C600);
+        }
+
+        /* Product Card (No offers) */
+        .product-card.no-offers {
+            opacity: 0.7; /* Slightly more visible disabled state */
+            cursor: not-allowed;
+            filter: grayscale(20%); /* More noticeable grayscale */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Very subtle shadow */
+            pointer-events: none; /* Disable all pointer events */
+        }
+        .product-card.no-offers:hover {
+            transform: none; /* No hover lift effect */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .product-card.no-offers .not-available-button {
+            background-color: #E6E6E6; /* Lighter gray for disabled button */
+            color: #707070; /* Darker gray text */
+            cursor: not-allowed;
+            border-color: #D5D9D9;
+            box-shadow: none;
+            background-image: none;
+        }
+        .product-card.no-offers .not-available-button:hover {
+            background-color: #E6E6E6;
+            border-color: #D5D9D9;
+        }
+
+        /* Deal specific styles */
+        .deal-badge {
+            background-color: #CC0C39; /* Amazon Red for deals */
+            color: #FFFFFF;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-radius: 0.125rem;
+            position: absolute; /* Position relative to parent card */
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+        .deal-price-section {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .deal-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #CC0C39; /* Red for deal price */
+        }
+        .deal-price sup {
+            font-size: 0.75rem;
+            font-weight: 400;
+            vertical-align: super;
+        }
+        .original-price-strike {
+            font-size: 0.875rem;
+            color: #565959;
+            text-decoration: line-through;
+        }
+        .limited-time-deal {
+            font-size: 0.8rem;
+            color: #CC0C39;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header class="header">
+        <!-- Amazon Logo and Deliver to -->
+        <div class="header-logo-section">
+            <a href="index.html" class="header-logo-link">
+                <img src="amazon_logo.png" alt="Amazon Logo" class="amazon-logo">
+                
+            </a>
+            <div class="delivery-location">
+                <svg xmlns="http://www.w3.org/2000/svg" class="delivery-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                </svg>
+                <div class="delivery-text-container">
+                    <p class="delivery-label">Deliver to</p>
+                    <p class="delivery-value">Pakistan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar-container">
+            <select class="search-dropdown">
+                <option>All</option>
+                <option>Today's Deals</option>
+                <option>Electronics</option>
+                <option>Home</option>
+                <option>Books</option>
+            </select>
+            <input type="text" placeholder="Search Amazon" class="search-input">
+            <button class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-header-section">
+            <a href="#" class="header-link">
+                <img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/us_flag_icon_130953.png" alt="US Flag" class="flag-icon">
+                <span class="language-text">EN</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="small-dropdown-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+            <a href="#" class="header-link">
+                <p>Hello, sign in</p>
+                <strong>Account & Lists <svg xmlns="http://www.w3.org/2000/svg" class="small-dropdown-icon inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></strong>
+            </a>
+            <a href="#" class="header-link">
+                <p>Returns</p>
+                <strong>& Orders</strong>
+            </a>
+            <a href="#" class="cart-link">
+                <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+                </svg>
+                <span class="cart-count">0</span>
+                <span class="cart-text">Cart</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="bottom-nav-link all-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <span>All</span>
+        </a>
+        <a href="#" class="bottom-nav-link">Today's Deals</a>
+        <a href="#" class="bottom-nav-link">Registry</a>
+        <a href="#" class="bottom-nav-link">Video</a>
+        <a href="#" class="bottom-nav-link">Gift Cards</a>
+        <a href="#" class="bottom-nav-link">Customer Service</a>
+        <a href="#" class="bottom-nav-link">Sell</a>
+    </nav>
+
+    <!-- Deals Sub-Navigation -->
+    <div class="deals-nav">
+        <a href="#" class="deals-nav-button active">Today's Deals</a>
+        <a href="#" class="deals-nav-button">Coupons</a>
+        <a href="#" class="deals-nav-button">Outlet</a>
+        <a href="#" class="deals-nav-button">Amazon Renewed</a>
+        <a href="#" class="deals-nav-button">Amazon Warehouse</a>
+        <a href="#" class="deals-nav-button">Deals & Savings</a>
+        <a href="#" class="deals-nav-button">Subscribe & Save</a>
+        <a href="#" class="deals-nav-button">Digital Deals</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content-container">
+        <!-- Promoted Banner (Momcozy) -->
+        <div class="echo-banner">
+            <img src="https://placehold.co/1000x200/F7F7F7/0F1111?text=Momcozy+Banner" alt="Momcozy Banner Background" class="echo-banner-image">
+            <div class="echo-banner-text-container">
+                <img src="https://placehold.co/100x40/F7F7F7/0F1111?text=momcozy" alt="Momcozy Logo" class="echo-banner-logo">
+                <h2 class="echo-banner-heading">Momcozy Wearable Bra Pumps Washer, Sterilizer & Dryer All-in-One ... $299.99+</h2>
+                <button class="echo-banner-shop-button">Shop Now</button>
+            </div>
+        </div>
+
+        <h1 class="todays-deals-heading">Today's Deals</h1>
+
+        <!-- Deal Categories Horizontal Scroller -->
+        <div class="deals-nav">
+            <a href="#" class="deals-nav-button">Trending</a>
+            <a href="#" class="deals-nav-button">Lightning deals</a>
+            <a href="#" class="deals-nav-button">Customers' Most-Loved</a>
+            <a href="#" class="deals-nav-button">Summer Favorites</a>
+            <a href="#" class="deals-nav-button">Outlet</a>
+            <a href="#" class="deals-nav-button">Beauty</a>
+            <a href="#" class="deals-nav-button">Fashion</a>
+            <a href="#" class="deals-nav-button">Home</a>
+            <a href="#" class="deals-nav-button">Toys & Games</a>
+            <a href="#" class="deals-nav-button">Electronics</a>
+            <a href="#" class="deals-nav-button">Devices</a>
+            <a href="#" class="deals-nav-button">Kitchen</a>
+        </div>
+
+        <div class="main-content-layout">
+            <!-- Left Sidebar - Filters -->
+            <aside class="sidebar">
+                <h3>Refine By</h3>
+
+                <!-- Department Filter -->
+                <div class="filter-section">
+                    <h4>Department</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> Amazon Devices & Accessories</label></li>
+                        <li><label><input type="checkbox"> Appliances</label></li>
+                        <li><label><input type="checkbox"> Arts, Crafts & Sewing</label></li>
+                        <li><label><input type="checkbox"> Automotive</label></li>
+                        <li><a href="#" class="see-more">See more</a></li>
+                    </ul>
+                </div>
+
+                <!-- Brands Filter -->
+                <div class="filter-section">
+                    <h4>Brands</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> Anker</label></li>
+                        <li><label><input type="checkbox"> LOGITECH G</label></li>
+                        <li><label><input type="checkbox"> RUNNING GIRL</label></li>
+                        <li><label><input type="checkbox"> Umei</label></li>
+                        <li><a href="#" class="see-more">See more</a></li>
+                    </ul>
+                </div>
+
+                <!-- Customer Reviews -->
+                <div class="filter-section">
+                    <h4>Customer Reviews</h4>
+                    <ul class="filter-list">
+                        <li><a href="#" class="rating-container">
+                            <span class="star-rating">★★★★★</span> <span class="rating-text">& Up</span>
+                        </a></li>
+                        <li><a href="#" class="rating-container">
+                            <span class="star-rating">★★★★☆</span> <span class="rating-text">& Up</span>
+                        </a></li>
+                        <li><a href="#" class="rating-container">
+                            <span class="star-rating">★★★☆☆</span> <span class="rating-text">& Up</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Price Filter -->
+                <div class="filter-section">
+                    <h4>Price</h4>
+                    <ul class="filter-list">
+                        <li><a href="#">$10 - $25</a></li>
+                        <li><a href="#">$25 - $50</a></li>
+                        <li><a href="#">$50 - $100</a></li>
+                        <li><a href="#">$100 - $200</a></li>
+                        <li><a href="#">$200 & Up</a></li>
+                    </ul>
+                    <div class="price-input-group">
+                        <input type="number" value="0" class="price-input" id="minPrice">
+                        <span class="price-input-separator">-</span>
+                        <input type="number" value="10000" class="price-input" id="maxPrice">
+                        <button class="price-go-button">Go</button>
+                    </div>
+                </div>
+
+                <!-- Deal Type -->
+                <div class="filter-section">
+                    <h4>Deal Type</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> Deal of the Day</label></li>
+                        <li><label><input type="checkbox"> Lightning Deal</label></li>
+                        <li><label><input type="checkbox"> Savings & Sales</label></li>
+                    </ul>
+                </div>
+
+                <!-- Availability -->
+                <div class="filter-section">
+                    <h4>Availability</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> In Stock</label></li>
+                    </ul>
+                </div>
+
+            </aside>
+
+            <!-- Right Content - Product Listings -->
+            <main class="product-listings-main">
+                <div class="listing-header">
+                    <p class="listing-results-text">1-48 of over 300,000 results for <span class="font-semibold">"electronics"</span></p>
+                    <div class="sort-by-container">
+                        <span class="sort-by-label">Sort by:</span>
+                        <select class="sort-by-select">
+                            <option>Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Avg. Customer Review</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid">
+                    <!-- Product Card 1: Echo Pop with Echo Show 5 -->
+                    <div class="product-card">
+                        <span class="deal-badge">20% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Echo+Pop+Show" alt="Echo Pop with Echo Show 5">
+                            <h3>Echo Pop with Echo Show 5 (3rd Gen) | Our best smart display and a compact smart speaker with Alexa...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">9,900</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$49<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $69.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 2: RUNNING GIRL Sports Bra -->
+                    <div class="product-card">
+                        <span class="deal-badge">25% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Sports+Bra" alt="RUNNING GIRL Sports Bra">
+                            <h3>RUNNING GIRL Sports Bra for Women, Criss-Cross Back Padded Strappy Sports Bras Medium Support...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">15,700</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$21<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $29.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 3: Umei Drawer Fan -->
+                    <div class="product-card">
+                        <span class="deal-badge">17% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Umei+Drawer+Fan" alt="Umei Drawer Fan">
+                            <h3>Umei Drawer Fan for Bedroom, Small, Portable, USB Powered, 3-Speed, Desk Fan for Home Dorm Office...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">12,170</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$19<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $23.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 4: CUSHIONAIRE Lane Cork Footbed Sandals -->
+                    <div class="product-card">
+                        <span class="deal-badge">40% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=CUSHIONAIRE+Sandals" alt="CUSHIONAIRE Lane Cork Footbed Sandals">
+                            <h3>CUSHIONAIRE Lane Cork Footbed Sandals for Women with +Comfort Vegan Leather, Eva Outsole...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">5,450</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$26<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $44.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 5: LEVOIT Air Purifiers for Home -->
+                    <div class="product-card">
+                        <span class="deal-badge">42% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=LEVOIT+Purifier" alt="LEVOIT Air Purifiers for Home">
+                            <h3>LEVOIT Air Purifiers for Home, 3-in-1 Filter, True HEPA, Activated Carbon Filter for Smoke, Allergies...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">15,000</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$59<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $99.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 6: WOOMOF 100 IN 1 Electronic Air Duster -->
+                    <div class="product-card">
+                        <span class="deal-badge">42% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Air+Duster" alt="Electronic Air Duster">
+                            <h3>WOOMOF 100 IN 1 Electronic Air Duster +150000RPM Strongest Electric Air Blower for Computer Keyboard...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">5,900</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$39<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $69.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 7: Anker Power Bank -->
+                    <div class="product-card">
+                        <span class="deal-badge">20% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Anker+Power+Bank" alt="Anker Power Bank">
+                            <h3>Anker Portable Charger, 20W PD Fast Charging Power Bank with Built-in Cables for USB-C & Lightning...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">9,186</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$39<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $49.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 8: Mounting Dream TV Wall Mount -->
+                    <div class="product-card">
+                        <span class="deal-badge">20% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=TV+Wall+Mount" alt="Mounting Dream TV Wall Mount">
+                            <h3>Mounting Dream TV Wall Mount for 37-85 Inch TVs, Full Motion TV Mount with Articulating Arm, Swivel...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="review-link">77,095</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$47<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $59.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 9: COSORI Air Fryer 5.8 QT -->
+                    <div class="product-card">
+                        <span class="deal-badge">25% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=COSORI+Air+Fryer" alt="COSORI Air Fryer">
+                            <h3>COSORI Air Fryer 5.8 QT, Large 6-in-1 Air Fryer with 11 Presets, Oven, Toaster, Dehydrator...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">56,000</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$89<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $119.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 10: CUSHIONAIRE Lane Cork Footbed Sandals (duplicate for layout) -->
+                    <div class="product-card">
+                        <span class="deal-badge">40% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=CUSHIONAIRE+Sandals" alt="CUSHIONAIRE Lane Cork Footbed Sandals">
+                            <h3>CUSHIONAIRE Lane Cork Footbed Sandals for Women with +Comfort Vegan Leather, Eva Outsole...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">5,450</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$26<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $44.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                     <!-- Product Card 11: Simply Vital Collagen Peptides Powder -->
+                     <div class="product-card">
+                        <span class="deal-badge">27% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Collagen+Peptides" alt="Simply Vital Collagen Peptides">
+                            <h3>Simply Vital Collagen Peptides Powder | Type I & III Hydrolyzed Collagen for Women and Men...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">1,394</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$19<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $27.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 12: Garmin Forerunner 265S -->
+                    <div class="product-card">
+                        <span class="deal-badge">31% off</span>
+                        <div>
+                            <img src="https://placehold.co/300x200/FFFFFF/000000?text=Garmin+Watch" alt="Garmin Forerunner 265S">
+                            <h3>Garmin Forerunner 265S, GPS Running Smartwatch with AMOLED Display, Training Metrics and Recovery...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">984</span>
+                            </div>
+                            <div class="deal-price-section">
+                                <p class="deal-price">$309<sup class="price-suffix">99</sup></p>
+                                <p class="original-price-strike">List Price: $449.99</p>
+                            </div>
+                            <p class="limited-time-deal">Limited time deal</p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Price range slider functionality
+            const priceRange = document.getElementById('priceRange');
+            const minPriceInput = document.getElementById('minPrice');
+            const maxPriceInput = document.getElementById('maxPrice');
+
+            if (priceRange && minPriceInput && maxPriceInput) {
+                // Initialize min and max inputs based on slider value (simple single slider example)
+                minPriceInput.value = 0; // The image shows min as $0 and max as $10,000+
+                maxPriceInput.value = priceRange.max; // Set max input to max slider value initially
+
+                // Update max input when slider moves
+                priceRange.addEventListener('input', () => {
+                    maxPriceInput.value = priceRange.value;
+                });
+
+                // Update slider when max input changes
+                maxPriceInput.addEventListener('change', () => {
+                    let maxVal = parseInt(maxPriceInput.value);
+                    let minVal = parseInt(minPriceInput.value);
+                    if (maxVal < minVal) {
+                        maxVal = minVal;
+                        maxPriceInput.value = minVal;
+                    }
+                    if (maxVal > parseInt(priceRange.max)) {
+                        maxVal = parseInt(priceRange.max);
+                        maxPriceInput.value = priceRange.max;
+                    }
+                    priceRange.value = maxVal;
+                });
+
+                // Update max input when min input changes
+                minPriceInput.addEventListener('change', () => {
+                    let minVal = parseInt(minPriceInput.value);
+                    let maxVal = parseInt(maxPriceInput.value);
+                    if (minVal > maxVal) {
+                        minVal = maxVal;
+                        minPriceInput.value = maxVal;
+                    }
+                    if (minVal < parseInt(priceRange.min)) {
+                        minVal = parseInt(priceRange.min);
+                        minPriceInput.value = priceRange.min;
+                    }
+                });
+            }
+
+            // Deal categories active state
+            const dealButtons = document.querySelectorAll('.deals-nav-button');
+            dealButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    dealButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

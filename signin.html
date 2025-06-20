@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Amazon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="signin.css">
+</head>
+<body>
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-center min-vh-100">
+        <div class="amazon-logo mb-4">
+            <a href="index.html">
+                <img src="amazon_logo.png" alt="Amazon" class="img-fluid">
+            </a>    
+        </div>
+
+        <div class="login-card p-4 border rounded shadow-sm">
+            <h5 class="mb-4">Sign in or create account</h5>
+            <form>
+                <div class="mb-3">
+                    <label for="emailOrPhone" class="form-label fw-bold">Enter mobile number or email</label>
+                    <input type="text" class="form-control" id="emailOrPhone" aria-describedby="emailHelp">
+                </div>
+                <button type="submit" class="btn btn-warning w-100 mb-3">Continue</button>
+            </form>
+            <p class="form-text">
+                By continuing, you agree to Amazon's <a href="#" class="text-decoration-none">Conditions of Use</a> and <a href="#" class="text-decoration-none">Privacy Notice</a>.
+            </p>
+            <a href="#" class="text-decoration-none d-block mb-4">Need help?</a>
+
+            <hr class="my-4">
+
+            <p class="fw-bold mb-2">Buying for work?</p>
+            <a href="#" class="text-decoration-none">Create a free business account</a>
+        </div>
+
+        <hr class="my-5 w-100" style="max-width: 350px;">
+
+        <div class="footer-links text-center mb-3">
+            <a href="#" class="text-decoration-none mx-2">Conditions of Use</a>
+            <a href="#" class="text-decoration-none mx-2">Privacy Notice</a>
+            <a href="#" class="text-decoration-none mx-2">Help</a>
+        </div>
+        <p class="text-muted text-center">&copy; 1996-2025, Amazon.com, Inc. or its affiliates.</p>
+    </div>
+
+    <script src="{{ asset('js/signin.js') }}"></script>
+    <script src="script.js"></script>
+</body>
+</html>

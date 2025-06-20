@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Home Product Listing</title>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+    
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header class="header">
+        <!-- Amazon Logo and Deliver to -->
+        <div class="header-logo-section">
+            <a href="index.html" class="header-logo-link">
+                <img src="amazon_logo.png" alt="Amazon Logo" class="amazon-logo">
+                
+            </a>
+            <div class="delivery-location">
+                <svg xmlns="http://www.w3.org/2000/svg" class="delivery-icon" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                </svg>
+                <div class="delivery-text-container">
+                    <p class="delivery-label">Deliver to</p>
+                    <p class="delivery-value">Pakistan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar-container">
+            <select class="search-dropdown">
+                <option>All</option>
+                <option>Home</option>
+                <option>Electronics</option>
+                <option>Books</option>
+            </select>
+            <input type="text" placeholder="home" class="search-input">
+            <button class="search-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-header-section">
+            <a href="#" class="header-link">
+                <img src="https://cdn.icon-icons.com/icons2/2107/PNG/512/us_flag_icon_130953.png" alt="US Flag" class="flag-icon">
+                <span class="language-text">EN</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="small-dropdown-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+            <a href="#" class="hidden-md header-link">
+                <p>Hello, sign in</p>
+                <strong>Account & Lists <svg xmlns="http://www.w3.org/2000/svg" class="small-dropdown-icon inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></strong>
+            </a>
+            <a href="#" class="hidden-md header-link">
+                <p>Returns</p>
+                <strong>& Orders</strong>
+            </a>
+            <a href="#" class="cart-link">
+                <svg xmlns="http://www.w3.org/2000/svg" class="cart-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+                </svg>
+                <span class="cart-count">0</span>
+                <span class="hidden-md cart-text">Cart</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="bottom-nav-link all-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <span>All</span>
+        </a>
+        <a href="#" class="bottom-nav-link">Today's Deals</a>
+        <a href="#" class="bottom-nav-link">Registry</a>
+        <a href="#" class="bottom-nav-link">Gift Cards</a>
+        <a href="#" class="bottom-nav-link">Customer Service</a>
+        <a href="#" class="bottom-nav-link">Sell</a>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="main-content-container">
+        <!-- Echo Banner -->
+        <div class="echo-banner">
+            <img src="amazon echo.png" alt="Echo Banner Background" class="echo-banner-image">
+            <div class="echo-banner-text-container">
+                
+                <h2 class="echo-banner-heading">Hear the world in color, smart speakers with Alexa</h2>
+                <button class="echo-banner-shop-button">Shop Echo</button>
+            </div>
+        </div>
+
+        <div class="product-check-note">
+            Check each product page for other buying options. Price and other details may vary based on product size and color.
+        </div>
+
+        <div class="main-content-layout">
+            <!-- Left Sidebar - Filters -->
+            <aside class="sidebar">
+                <h3>Refine By</h3>
+
+                <!-- Explore Related -->
+                <div class="filter-section">
+                    <h4>Explore Related Products</h4>
+                    <ul class="filter-list">
+                        <li><a href="#">home improvement</a></li>
+                        <li><a href="#">garage organization</a></li>
+                        <li><a href="#">patio, lawn & garden</a></li>
+                        <li><a href="#">storage containers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Department -->
+                <div class="filter-section">
+                    <h4>Department</h4>
+                    <ul class="filter-list">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#" class="department-sub-item">Kitchen & Dining</a></li>
+                        <li><a href="#" class="department-sub-item">Movies & TV</a></li>
+                        <li><a href="#" class="department-sub-item">Electronics</a></li>
+                        <li><a href="#" class="department-sub-item">Home Audio & Theater</a></li>
+                        <li><a href="#" class="department-sub-item">Musical Instruments</a></li>
+                        <li><a href="#" class="department-sub-item">Lighting & Ceiling Fans</a></li>
+                        <li><a href="#" class="department-sub-item">Gaming & Consoles</a></li>
+                    </ul>
+                </div>
+
+                <!-- Deals & Discounts -->
+                <div class="filter-section">
+                    <h4>Deals & Discounts</h4>
+                    <ul class="filter-list">
+                        <li><a href="#">All Discounts</a></li>
+                        <li><a href="#">Today's Deals</a></li>
+                    </ul>
+                </div>
+
+                <!-- Price Filter -->
+                <div class="filter-section">
+                    <h4>Price</h4>
+                    <div class="price-filter-controls">
+                        <span>$0</span>
+                        <input type="range" min="0" max="10000" value="5000" class="price-range-slider" id="priceRange">
+                        <span>$10,000+</span>
+                    </div>
+                    <div class="price-input-group">
+                        <input type="number" value="0" class="price-input" id="minPrice">
+                        <span class="price-input-separator">-</span>
+                        <input type="number" value="10000" class="price-input" id="maxPrice">
+                        <button class="price-go-button">Go</button>
+                    </div>
+                </div>
+
+                <!-- Customer Reviews -->
+                <div class="filter-section">
+                    <h4>Customer Reviews</h4>
+                    <ul class="filter-list">
+                        <li><a href="#" class="rating-container">
+                            <span class="star-rating">★★★★★</span> <span class="rating-text">& Up</span>
+                        </a></li>
+                        <li><a href="#" class="rating-container">
+                            <span class="star-rating">★★★★☆</span> <span class="rating-text">& Up</span>
+                        </a></li>
+                        <li><a href="#" class="rating-container">
+                            <span class="star-rating">★★★☆☆</span> <span class="rating-text">& Up</span>
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Color Filter -->
+                <div class="filter-section">
+                    <h4>Color</h4>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background-color: #FFFFFF;" title="White"></div>
+                        <div class="color-swatch" style="background-color: #000000;" title="Black"></div>
+                        <div class="color-swatch" style="background-color: #FF0000;" title="Red"></div>
+                        <div class="color-swatch" style="background-color: #008000;" title="Green"></div>
+                        <div class="color-swatch" style="background-color: #0000FF;" title="Blue"></div>
+                        <div class="color-swatch" style="background-color: #FFFF00;" title="Yellow"></div>
+                        <div class="color-swatch" style="background-color: #800080;" title="Purple"></div>
+                        <div class="color-swatch" style="background-color: #FFA500;" title="Orange"></div>
+                        <div class="color-swatch" style="background-color: #A52A2A;" title="Brown"></div>
+                        <div class="color-swatch" style="background-color: #C0C0C0;" title="Silver"></div>
+                        <div class="color-swatch" style="background-color: #D4AF37;" title="Gold"></div>
+                        <div class="color-swatch" style="background-color: #808080;" title="Gray"></div>
+                    </div>
+                </div>
+
+                <!-- Condition Filter -->
+                <div class="filter-section">
+                    <h4>Condition</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> New</label></li>
+                        <li><label><input type="checkbox"> Used</label></li>
+                    </ul>
+                </div>
+
+                <!-- Seller Filter -->
+                <div class="filter-section">
+                    <h4>Seller</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> Amazon.com</label></li>
+                        <li><label><input type="checkbox"> Third-Party Seller</label></li>
+                    </ul>
+                </div>
+
+                <!-- Brands -->
+                <div class="filter-section">
+                    <h4>Brands</h4>
+                    <ul class="filter-list brand-list">
+                        <li><label><input type="checkbox"> LEVOIT</label></li>
+                        <li><label><input type="checkbox"> Hoover</label></li>
+                        <li><label><input type="checkbox"> OXO</label></li>
+                        <li><label><input type="checkbox"> Volam</label></li>
+                        <li><label><input type="checkbox"> Simplehuman</label></li>
+                        <li><label><input type="checkbox"> Amazon Basics</label></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Right Content - Product Listings -->
+            <main class="product-listings-main">
+                <div class="listing-header">
+                    <p class="listing-results-text">1-48 of over 300,000 results for <span class="font-semibold">"home"</span></p>
+                    <div class="sort-by-container">
+                        <span class="sort-by-label">Sort by:</span>
+                        <select class="sort-by-select">
+                            <option>Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Avg. Customer Review</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid">
+                    <!-- Product Card 1: LEVOIT Air Purifier -->
+                    <div class="product-card">
+                        <div>
+                            <img src="levoit air purifier.jpeg" alt="LEVOIT Air Purifier">
+                            <h3>LEVOIT Air Purifier for Home Allergies and Pet Hair in Bedroom, Core 300S Smart H13 HEPA Filter for...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★★</span>
+                                <span class="review-link">120,274</span>
+                            </div>
+                            <p class="bought-in-month">300K+ bought in past month</p>
+                            <p class="price">$99<sup class="price-suffix">99</sup></p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 2: Metal & Acrylic Magnetic Spice Rack -->
+                    <div class="product-card">
+                        <div>
+                            <img src="spice rack.jpeg" alt="Spice Rack Organizer">
+                            <h3>Metal & Acrylic Magnetic Spice Rack Organizer for Refrigerator and Oven, Black, Fridge Organizers...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">17,495</span>
+                            </div>
+                            <p class="bought-in-month">50K+ bought in past month</p>
+                            <p class="price">$16<sup class="price-suffix">99</sup></p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 3: Hoover Registers Air Filters -->
+                    <div class="product-card">
+                        <div>
+                            <img src="hoover filter.jpeg" alt="Hoover Registers Air Filters">
+                            <h3>Hoover Registers Air 12 inches - 3 Pack Heavy Duty ReUsable Steel Floor Vents Base Adjust Air...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">25</span>
+                            </div>
+                            <p class="bought-in-month">500+ bought in past month</p>
+                            <p class="price">$45<sup class="price-suffix">99</sup></p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 4: 2 Piece Cocktail Shaker -->
+                    <div class="product-card">
+                        <div>
+                            <img src="coctail shaker.jpeg" alt="Cocktail Shaker">
+                            <h3>2 Piece Cocktail Shaker, Insulated Double Wall, Martini Shaker, Drink Shaker, No Stuck Twist Lid...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">344</span>
+                            </div>
+                            <p class="bought-in-month">100+ bought in past month</p>
+                            <p class="price">$26<sup class="price-suffix">99</sup></p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 5: Volam Wide Rain Shower Head -->
+                    <div class="product-card">
+                        <div>
+                            <img src="shower head.jpeg" alt="Shower Head">
+                            <h3>Volam Wide Rain Shower Head with 9 Modes Handheld Water Spray High Pressure Showerhead Combo with...</h3>
+                            <div class="rating-container">
+                                <span class="rating-stars">★★★★☆</span>
+                                <span class="review-link">1,234</span>
+                            </div>
+                            <p class="bought-in-month">10K+ bought in past month</p>
+                            <p class="price">$49<sup class="price-suffix">99</sup></p>
+                            <p class="delivery-date">Delivery Tue, Jun 24</p>
+                            <p class="ships-to">Ships to Pakistan</p>
+                        </div>
+                        <button class="add-to-cart-button">Add to Cart</button>
+                    </div>
+
+                    <!-- Product Card 6 (Example of a blank card) -->
+                    
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Price range slider functionality
+            const priceRange = document.getElementById('priceRange');
+            const minPriceInput = document.getElementById('minPrice');
+            const maxPriceInput = document.getElementById('maxPrice');
+
+            if (priceRange && minPriceInput && maxPriceInput) {
+                // Initialize min and max inputs based on slider value (simple single slider example)
+                minPriceInput.value = 0; // The image shows min as $0 and max as $10,000+
+                maxPriceInput.value = priceRange.value; // Here, priceRange slider represents the max value
+
+                priceRange.addEventListener('input', () => {
+                    maxPriceInput.value = priceRange.value;
+                });
+
+                maxPriceInput.addEventListener('change', () => {
+                    if (parseInt(maxPriceInput.value) < parseInt(minPriceInput.value)) {
+                        maxPriceInput.value = minPriceInput.value;
+                    }
+                    if (parseInt(maxPriceInput.value) > parseInt(priceRange.max)) {
+                        maxPriceInput.value = priceRange.max;
+                    }
+                    priceRange.value = maxPriceInput.value;
+                });
+
+                minPriceInput.addEventListener('change', () => {
+                    if (parseInt(minPriceInput.value) > parseInt(maxPriceInput.value)) {
+                        minPriceInput.value = maxPriceInput.value;
+                    }
+                    if (parseInt(minPriceInput.value) < parseInt(priceRange.min)) {
+                        minPriceInput.value = priceRange.min;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

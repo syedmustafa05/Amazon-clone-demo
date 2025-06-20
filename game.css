@@ -1,0 +1,873 @@
+/* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EAEDED; /* Light gray background */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Ensure consistent box model across all elements */
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button, select, input {
+            font-family: inherit;
+            font-size: inherit;
+            box-sizing: border-box;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #131921; /* Dark Amazon header blue */
+            color: #FFFFFF;
+            padding: 0 16px; /* Adjusted padding to allow full height elements */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem; /* text-sm */
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 50; /* Ensure header stays on top of other content */
+            min-width: 320px; /* Prevent shrinking on very small screens */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for header */
+            height: 60px; /* Fixed height for the header to align items */
+        }
+        @media (min-width: 768px) {
+            .header {
+                font-size: 1rem; /* md:text-base */
+            }
+        }
+
+        .header-logo-section {
+            display: flex;
+            align-items: center;
+            height: 100%; /* Occupy full header height */
+            padding-right: 8px; /* Space between logo and delivery */
+        }
+        .header-logo-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 0 6px; /* Adjusted padding for better alignment */
+            height: 50px; /* Match approximate height of real Amazon header items */
+            border-radius: 0.125rem; /* Slightly less rounded */
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            margin-right: 4px; /* Small gap before delivery address */
+        }
+        .header-logo-link:hover {
+            border-color: #FFFFFF;
+        }
+        .amazon-logo {
+            height: 30px; /* Adjusted logo size for better realism */
+            margin-top: 5px; /* Slight adjustment for visual alignment */
+        }
+        @media (min-width: 768px) {
+            .amazon-logo {
+                height: 35px;
+            }
+        }
+        .amazon-com-suffix {
+            display: none;
+            font-size: 1rem; /* Slightly larger for .com */
+            margin-top: 4px; /* Align with logo */
+            font-weight: 500;
+        }
+        @media (min-width: 768px) {
+            .amazon-com-suffix {
+                display: inline-block;
+            }
+        }
+
+        .delivery-location {
+            display: flex;
+            align-items: flex-end; /* Align to bottom for text alignment */
+            gap: 2px; /* Reduced gap */
+            cursor: pointer;
+            padding: 4px 6px; /* Adjusted padding */
+            height: 50px; /* Match height of logo link */
+            border-radius: 0.125rem;
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+        }
+        .delivery-location:hover {
+            border-color: #FFFFFF;
+        }
+        .delivery-icon {
+            height: 18px; /* Slightly smaller icon */
+            width: 18px;
+            margin-bottom: 2px; /* Align with text baseline */
+        }
+        .delivery-text-container {
+            display: none;
+            line-height: 1.2; /* Tighter line height */
+        }
+        @media (min-width: 640px) {
+            .delivery-text-container {
+                display: block;
+            }
+        }
+        .delivery-label {
+            font-size: 0.65rem; /* Smaller font for "Deliver to" */
+            color: #CCC; /* Lighter gray for sub-text */
+        }
+        .delivery-value {
+            font-weight: 700;
+            font-size: 0.8rem; /* Slightly smaller for "Pakistan" */
+        }
+
+        /* Search Bar Styles */
+        .search-bar-container {
+            flex-grow: 1;
+            margin: 0 16px;
+            max-width: 700px; /* Increased max-width */
+            height: 40px; /* Fixed height for search bar */
+            display: none;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            border: 2px solid transparent; /* Default transparent border */
+            transition: border-color 0.1s ease-in-out;
+        }
+        @media (min-width: 1024px) {
+            .search-bar-container {
+                display: flex;
+            }
+        }
+        .search-bar-container:focus-within {
+            border-color: #FF9900; /* Yellow border on focus */
+        }
+
+        .search-dropdown {
+            background-color: #F3F3F3; /* Light gray for dropdown */
+            color: #555;
+            padding: 8px 10px; /* Adjusted padding */
+            font-size: 0.8rem; /* Slightly smaller font */
+            border: none;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 6px center; /* Adjusted arrow position */
+            background-size: 0.8em; /* Smaller arrow */
+            padding-right: 1.5rem;
+            cursor: pointer;
+            border-top-left-radius: 0.375rem;
+            border-bottom-left-radius: 0.375rem;
+            border-right: 1px solid #AAA; /* Darker separator line */
+        }
+        .search-input {
+            flex-grow: 1;
+            padding: 8px 10px;
+            color: #1F2937;
+            outline: none;
+            border: none;
+            background-color: #FFFFFF;
+        }
+        .search-button {
+            background-color: #FEBD69; /* Amazon's search button orange */
+            color: #1F2937;
+            padding: 8px 12px; /* Adjusted padding */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out;
+            border-top-right-radius: 0.375rem;
+            border-bottom-right-radius: 0.375rem;
+        }
+        .search-button:hover {
+            background-color: #F3A847; /* Darker orange on hover */
+        }
+        .search-button svg {
+            height: 22px; /* Slightly smaller search icon */
+            width: 22px;
+        }
+
+        /* Right Header Section Styles */
+        .right-header-section {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Reduced gap */
+            height: 100%; /* Occupy full header height */
+        }
+        .header-link {
+            display: flex;
+            flex-direction: column; /* Stack text vertically */
+            justify-content: center;
+            height: 50px; /* Consistent height */
+            padding: 0 7px; /* Adjusted padding */
+            border-radius: 0.125rem;
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .header-link:hover {
+            border-color: #FFFFFF;
+        }
+        .flag-icon {
+            height: 16px;
+            width: 16px;
+            margin-bottom: 2px; /* Space for text below */
+        }
+        .language-text {
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+        .header-dropdown-icon {
+            height: 12px;
+            width: 12px;
+            margin-left: 2px;
+            vertical-align: middle; /* Align with text */
+        }
+        .hidden-md {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .hidden-md {
+                display: block;
+            }
+        }
+        .header-link p {
+            font-size: 0.7rem; /* Smaller font for top line */
+            line-height: 1.2;
+            margin-bottom: 0;
+        }
+        .header-link strong {
+            font-weight: 700;
+            font-size: 0.85rem; /* Slightly larger for bottom line */
+            line-height: 1.2;
+        }
+        .header-link .small-dropdown-icon {
+            height: 8px; /* Even smaller for inline with strong */
+            width: 8px;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+
+        .cart-link {
+            position: relative;
+            display: flex;
+            align-items: flex-end; /* Align to bottom for text */
+            padding: 0 7px;
+            height: 50px; /* Consistent height */
+            border-radius: 0.125rem;
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            cursor: pointer;
+        }
+        .cart-link:hover {
+            border-color: #FFFFFF;
+        }
+        .cart-icon {
+            height: 38px; /* Larger cart icon */
+            width: 38px;
+            margin-bottom: -5px; /* Pull down slightly */
+        }
+        .cart-count {
+            position: absolute;
+            top: 7px; /* Adjusted top position */
+            left: 17px; /* Adjusted left position */
+            color: #F08804; /* Amazon's cart count orange */
+            font-weight: 700;
+            font-size: 0.9rem; /* Larger font for count */
+        }
+        .cart-text {
+            display: none;
+            margin-top: 18px; /* Push text down to align below cart */
+            font-weight: 700;
+            font-size: 0.85rem;
+            line-height: 1; /* Tighter line height */
+        }
+        @media (min-width: 768px) {
+            .cart-text {
+                display: block;
+            }
+        }
+
+        /* Bottom Navigation Styles */
+        .bottom-nav {
+            background-color: #232F3E; /* Darker blue for bottom nav */
+            color: #FFFFFF;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 2px; /* Reduced gap between links */
+            font-size: 0.875rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-height: 40px; /* Fixed height for bottom nav */
+        }
+        .bottom-nav-link {
+            padding: 6px 8px; /* Adjusted padding for better click area */
+            border-radius: 0.125rem; /* Slightly less rounded */
+            border: 1px solid transparent;
+            transition: border-color 0.1s ease-in-out;
+            white-space: nowrap;
+            font-weight: 500; /* Slightly bolder */
+            line-height: 1; /* Tighter line height */
+            font-size: 0.85rem; /* Slightly smaller font */
+        }
+        .bottom-nav-link:hover {
+            border-color: #FFFFFF;
+        }
+        .bottom-nav-link.all-link {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 700;
+        }
+        .bottom-nav-link svg {
+            height: 20px;
+            width: 20px;
+            margin-right: 2px; /* Space between icon and text */
+        }
+
+        /* Main Content Area */
+        .main-content-container {
+            max-width: 1280px; /* Standard content width */
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        /* Pakistan Banner */
+        .pakistan-banner {
+            background-color: #F0F8FF; /* Light blue background */
+            border-left: 4px solid #007185; /* Amazon's link blue for border */
+            color: #0F1111; /* Dark text for contrast */
+            padding: 16px;
+            border-radius: 0.375rem;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        .pakistan-banner .content {
+            display: flex;
+            align-items: center;
+            flex: 1 1 auto;
+            min-width: 0;
+            margin-right: 16px;
+        }
+        .pakistan-banner svg {
+            height: 24px;
+            width: 24px;
+            color: #007185;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .pakistan-banner .country-name {
+            font-weight: 700;
+            color: #007185; /* Highlight country name */
+        }
+        .pakistan-banner .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+        @media (min-width: 640px) {
+            .pakistan-banner .actions {
+                margin-top: 0;
+            }
+        }
+        .pakistan-banner button {
+            padding: 4px 12px;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); /* Smaller shadow for buttons */
+            outline: none;
+            border: 1px solid #D5D9D9; /* Standard button border */
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out, border-color 0.1s ease-in-out;
+            background-image: linear-gradient(to bottom, #F7FAFA, #E9ECEF); /* Subtle gradient */
+        }
+        .pakistan-banner button:hover {
+            background-color: #EBEDEF;
+            border-color: #B0B0B0;
+        }
+        .pakistan-banner button:focus {
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5), 0 0 0 6px rgba(66, 153, 225, 0.25);
+        }
+        .pakistan-banner .dismiss-button {
+            background-color: #FFFFFF; /* White background for dismiss */
+            color: #0F1111;
+        }
+        .pakistan-banner .dismiss-button:hover {
+            background-color: #F7FAFA;
+        }
+        .pakistan-banner .change-address-button {
+            background-color: #FFD814; /* Amazon's action orange */
+            color: #0F1111;
+            border-color: #FFC400; /* Darker border for the button */
+        }
+        .pakistan-banner .change-address-button:hover {
+            background-color: #F5C600;
+            border-color: #E0943A;
+        }
+
+        .product-check-note {
+            font-size: 0.875rem;
+            color: #4B5563;
+            margin-bottom: 16px;
+        }
+
+        .main-content-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        @media (min-width: 1024px) {
+            .main-content-layout {
+                flex-direction: row;
+            }
+        }
+
+        /* Left Sidebar - Filters */
+        .sidebar {
+            width: 100%;
+            background-color: #FFFFFF;
+            padding: 16px;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Lighter shadow for sidebar */
+        }
+        @media (min-width: 1024px) {
+            .sidebar {
+                width: 25%;
+                min-width: 200px;
+            }
+        }
+        .sidebar h3 {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 16px;
+        }
+        .filter-section {
+            margin-bottom: 24px;
+        }
+        .filter-section h4 {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #0F1111; /* Darker heading for clarity */
+        }
+        .filter-list {
+            font-size: 0.875rem;
+            color: #007185; /* Amazon's blue for links */
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .filter-list li {
+            margin-bottom: 4px;
+        }
+        .filter-list a {
+            transition: text-decoration 0.1s ease-in-out, color 0.1s ease-in-out;
+        }
+        .filter-list a:hover {
+            text-decoration: underline;
+            color: #C7511F; /* Highlight on hover */
+        }
+        .filter-list .see-more {
+            color: #007185;
+            cursor: pointer;
+        }
+        .filter-list .see-more:hover {
+            color: #C7511F;
+        }
+        .department-sub-item {
+            margin-left: 16px;
+        }
+
+        /* Price Filter Specific */
+        .price-filter-controls {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .price-filter-controls span {
+            font-size: 0.875rem;
+            color: #4B5563;
+            white-space: nowrap;
+        }
+        .price-range-slider {
+            flex-grow: 1;
+            margin: 0 8px;
+            height: 4px;
+            border-radius: 9999px;
+            background-color: #D1D5DB;
+            -webkit-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        /* Custom styles for the price range slider thumb */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #FF9900;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FF9900;
+            margin-top: -6px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #FF9900;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid #FF9900;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 4px;
+            background: #D5D9D9;
+            border-radius: 2px;
+        }
+        input[type="range"]::-moz-range-track {
+            height: 4px;
+            background: #D5D9D9;
+            border-radius: 2px;
+        }
+
+        .price-input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            gap: 4px;
+        }
+        .price-input {
+            width: 80px;
+            padding: 4px;
+            border: 1px solid #D5D9D9; /* Light gray border */
+            border-radius: 0.25rem; /* More subtle border radius */
+            font-size: 0.875rem;
+            text-align: center;
+            outline: none; /* Remove default focus outline */
+            transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        }
+        .price-input:focus {
+            border-color: #FFC400; /* Yellow border on focus */
+            box-shadow: 0 0 0 2px rgba(255, 196, 0, 0.4); /* Glow effect on focus */
+        }
+        .price-input-separator {
+            margin: 0 4px;
+            color: #6B7280;
+        }
+        .price-go-button {
+            background-color: #F7FAFA;
+            color: #0F1111;
+            padding: 4px 12px;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            margin-left: 8px;
+            border: 1px solid #D5D9D9;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+        .price-go-button:hover {
+            background-color: #EBEDEF;
+            border-color: #B0B0B0;
+        }
+
+        /* Customer Reviews */
+        .star-rating {
+            color: #FF9900; /* Amazon's star rating orange */
+        }
+        .review-count {
+            font-size: 0.75rem;
+            color: #007185;
+            margin-left: 4px;
+            cursor: pointer;
+        }
+        .review-count:hover {
+            text-decoration: underline;
+            color: #C7511F;
+        }
+        .rating-text {
+            color: #4B5563;
+        }
+
+        /* Brands Filter */
+        .brand-list label {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #374151;
+            margin-bottom: 4px;
+            cursor: pointer;
+        }
+        .brand-list input[type="checkbox"] {
+            margin-right: 8px;
+            border-radius: 0.125rem; /* Sharper corners for checkboxes */
+            color: #007185; /* Amazon's blue for checkboxes */
+            transform: scale(1.1);
+        }
+
+        /* Right Content - Product Listings */
+        .product-listings-main {
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .product-listings-main {
+                width: 75%;
+            }
+        }
+
+        .listing-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 8px;
+        }
+        @media (min-width: 640px) {
+            .listing-header {
+                flex-direction: row;
+                align-items: center;
+                gap: 0;
+            }
+        }
+        .listing-results-text {
+            font-size: 0.875rem;
+            color: #4B5563;
+            margin-bottom: 8px;
+        }
+        @media (min-width: 640px) {
+            .listing-results-text {
+                margin-bottom: 0;
+            }
+        }
+        .listing-results-text span {
+            font-weight: 600;
+        }
+        .sort-by-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            color: #4B5563;
+            margin-left: auto; /* Push to right on larger screens */
+        }
+        .sort-by-label {
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .sort-by-label {
+                display: block;
+            }
+        }
+        .sort-by-select {
+            padding: 8px;
+            border: 1px solid #D5D9D9;
+            border-radius: 0.25rem;
+            outline: none;
+            box-shadow: 0 0 0 0px transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+            padding-right: 2rem;
+            cursor: pointer;
+            background-color: #FFFFFF;
+            transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        }
+        .sort-by-select:focus {
+            border-color: #FFC400;
+            box-shadow: 0 0 0 2px rgba(255, 196, 0, 0.4);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 24px;
+        }
+        @media (min-width: 640px) {
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: #FFFFFF;
+            padding: 16px;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .product-card img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 16px;
+            border-radius: 0.375rem;
+            aspect-ratio: 4/3;
+            max-height: 180px;
+            display: block; /* Remove extra space below image */
+        }
+        .product-card h3 {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #0F1111; /* Dark text for headings */
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .product-card .rating-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            white-space: nowrap;
+        }
+        .product-card .rating-stars {
+            color: #FF9900;
+        }
+        .product-card .review-link {
+            font-size: 0.75rem;
+            color: #007185;
+            margin-left: 4px;
+        }
+        .product-card .review-link:hover {
+            text-decoration: underline;
+            color: #C7511F;
+        }
+        .product-card .bought-in-month {
+            color: #565959; /* More subtle gray */
+            font-size: 0.875rem;
+            margin-bottom: 8px;
+        }
+        .product-card .price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0F1111;
+            margin-bottom: 4px;
+        }
+        .product-card .price sup {
+            font-size: 0.75rem; /* Smaller superscript for cents */
+            font-weight: 400;
+            vertical-align: super;
+        }
+        .product-card .free-game-text {
+            font-size: 0.75rem;
+            color: #007185; /* Blue for game offer */
+            margin-bottom: 4px;
+        }
+        .product-card .delivery-date {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #007185; /* Amazon's link blue for delivery info */
+            margin-bottom: 4px;
+        }
+        .product-card .ships-to {
+            font-size: 0.75rem;
+            color: #565959;
+            margin-bottom: 4px;
+        }
+        .product-card .original-price {
+            font-size: 0.75rem;
+            color: #565959;
+            text-decoration: line-through;
+            margin-bottom: 4px;
+        }
+        .product-card .stock-warning {
+            font-size: 0.75rem;
+            color: #CC0C39; /* Amazon's red for warnings */
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .product-card .offers-link {
+            font-size: 0.75rem;
+            color: #007185;
+            margin-left: 4px;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        .product-card .offers-link:hover {
+            text-decoration: underline;
+            color: #C7511F;
+        }
+
+        .product-card .see-options-button {
+            margin-top: 16px;
+            background-color: #FFD814; /* Amazon's yellow button */
+            color: #0F1111;
+            padding: 8px 16px;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid #FFC400;
+            cursor: pointer;
+            transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+            width: 100%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            background-image: linear-gradient(to bottom, #F7FAFA, #E9ECEF); /* Subtle gradient */
+            background-image: linear-gradient(to bottom, #FFEA7F, #FFD814); /* Yellow gradient */
+        }
+        .product-card .see-options-button:hover {
+            background-color: #F5C600;
+            border-color: #E0943A;
+            background-image: linear-gradient(to bottom, #FFD814, #F5C600);
+        }
+
+        /* Product Card (No offers) */
+        .product-card.no-offers {
+            opacity: 0.7; /* Slightly more visible disabled state */
+            cursor: not-allowed;
+            filter: grayscale(20%); /* More noticeable grayscale */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Very subtle shadow */
+            pointer-events: none; /* Disable all pointer events */
+        }
+        .product-card.no-offers:hover {
+            transform: none; /* No hover lift effect */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        .product-card.no-offers .not-available-button {
+            background-color: #E6E6E6; /* Lighter gray for disabled button */
+            color: #707070; /* Darker gray text */
+            cursor: not-allowed;
+            border-color: #D5D9D9;
+            box-shadow: none;
+            background-image: none;
+        }
+        .product-card.no-offers .not-available-button:hover {
+            background-color: #E6E6E6;
+            border-color: #D5D9D9;
+        }
